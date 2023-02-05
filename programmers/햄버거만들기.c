@@ -11,7 +11,7 @@ int solution(int ingredient[], size_t ingredient_len) {
     for(int i=0;i<ingredient_len;i++){
         stack[size++]=ingredient[i];
         if(stack[size-1]==1){
-            while(size>=4){
+            if(size>=4){
                 if(stack[size-4]==1&&stack[size-3]==2&&stack[size-2]==3&&stack[size-1]==1){
                     answer++;
                     size-=4;
