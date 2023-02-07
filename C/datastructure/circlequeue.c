@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX_QUEUE_SIZE 5001
-
-
 typedef int element;
 
+//구조체로 원형 큐 구현
 typedef struct circlequeueType {
 
     element queue[MAX_QUEUE_SIZE];
-
     int front, rear;
 
 }circlequeueType;
@@ -43,3 +41,4 @@ int dequeue(struct circlequeueType* q) {
 		return q->queue[q->front];
 	}
 }
+
