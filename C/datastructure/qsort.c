@@ -3,12 +3,12 @@
 #include <stdlib.h> // stdlib.h에 qsort 있음
 int static compare1 (const void* first, const void* second)
 {
-    if (*(int*)first > *(int*)second)
+    if (*(int*)first > *(int*)second) // 크면 1
         return 1;
-    else if (*(int*)first < *(int*)second)
+    else if (*(int*)first < *(int*)second) // 작으면 -1
         return -1;
     else
-        return 0;
+        return 0; // 같으면 0
 }
 int compare2(const int *A, const int *B){ //내림차순용
     return *A < *B;
