@@ -1,34 +1,37 @@
+#include <stdlib.h>
 #include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h> // stdlib.h에 qsort 있음
-int static compare1 (const void* first, const void* second)
-{
-    if (*(int*)first > *(int*)second) // 크면 1
+
+int static compare1(const void* first, const void* second){
+    if(*(int*)first > *(int*)second)
         return 1;
-    else if (*(int*)first < *(int*)second) // 작으면 -1
+    else if(*(int*)first < *(int*)second)
         return -1;
     else
-        return 0; // 같으면 0
+        return 0;
 }
-int compare2(const int *A, const int *B){ //내림차순용
-    return *A < *B;
+int static compare2(const void* first, const void* second){
+    if(*(int*)first < *(int*)second)
+        return 1;
+    else if(*(int*)first > *(int*)second)
+        return -1;
+    else
+        return 0;
 }
 int main(){
-    int A[5] = {8,5,7,2,1};
-    int B[5] = {8,5,7,2,1};
-    int A_len = 5;
-    int B_len = 5;
-    //정렬할 배열과, 길이, 원소당 크기, 비교함수를 넣어주면 된다.
-    qsort(A,A_len,sizeof(int),compare1);
-    qsort(B,B_len,sizeof(int),compare2);
-    for(int i = 0; i < A_len; i++){
-        printf("%d ", A[i]);
-    }
-    printf("\n");
-    for(int i = 0; i < B_len; i++){
-        printf("%d ", B[i]);
-    }
-    printf("\n");
+    int a[5] = {8, 2, 5, 4, 7};
+    int b[5] = {8, 2, 5, 4, 7};
+    int a_len = 5, b_len = 5;
     
+    qsort(a,a_len,sizeof(int),compare1);
+    qsort(b,b_len,sizeof(int),compare2);
+    
+    for(int i = 0; i < a_len; i++){
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+    for(int i = 0; i < b_len; i++){
+        printf("%d ", b[i]);
+    }
     return 0;
 }
+
