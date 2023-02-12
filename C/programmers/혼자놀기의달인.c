@@ -1,67 +1,44 @@
+//checked와 group 그리고 card의 인덱스 갖고 노는 것이 어려워서 좀 고전함
+//그럴 땐 차근차근 노트에 써보자
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-
-int stack[1000000];
-
-// ingredient_len은 배열 ingredient의 길이입니다.
-int solution(int ingredient[], size_t ingredient_len) {
-    int answer = 0;
-    int size=0;
-    for(int i=0;i<ingredient_len;i++){
-        stack[size++]=ingredient[i];
-        if(stack[size-1]==1){
-            if(size>=4){
-                if(stack[size-4]==1&&stack[size-3]==2&&stack[size-2]==3&&stack[size-1]==1){
-                    answer++;
-                    size-=4;
-                }
-                else break;
-            }
-        }
-    }
-    return answer;
+int static compare(const void* front, const void* rear){
+    if(*(int*)front < *(int*)rear)
+        return 1;
+    else if(*(int*)front > *(int*)rear)
+        return -1;
+    else 
+        return 0;
 }
 
+bool checked[101] = {false}; // 방문했던 노드인지 확인
+int group[101] = {0}; // 그룹 길이 저장 -> 정렬 예정
 
-// #include <stdio.h>
-// #include <stdbool.h>
-// #include <stdlib.h>
-// int stack[1000001] = {0,};
-// //1 2 3 1
-// // ingredient_len은 배열 ingredient의 길이입니다.
-// int solution(int ingredient[], size_t ingredient_len) {
-//     int answer = 0;
-//     int idx = 0;
-//     int len = ingredient_len;
-//     while(len >= 4){
-//         for(int i = 0; i < ingredient_len; i++){
-//             stack[idx] = ingredient[i];
-//             if(stack[idx] == 1 && idx >= 3){
-//                 if(stack[idx-3] == 1 && stack[idx-2] == 2 && stack[idx-1] == 3){
-//                     answer++;
-//                     idx-=3;
-//                     len-=4;
-//                     continue;
-//                 }
-//             }
-//             idx++;
-//         }  
-//         if(answer == 0) break; // 3+4
-//     }
-//     return answer;
-// }    
 
-//1 2 3 1
-
-//2
-//2 1
-//2 1 1 
-//2 1 1 2
-//2 1 1 2 3
-//2 1 1 2 3 1
-//2 1
-//2 1 2
-//2 1 2 3
-//2 1 2 3 1
-//2 
+int solution(int cards[], size_t cards_len) {
+    int idx = 0; // 그룹 인덱스
+    int s;
+    int cnt;
+    for(int i = 0; i < cards_len; i++){
+        if(checked[i])
+            continue;
+        
+        s = i;
+        checked[s] = true;
+        cnt = 1;
+        while(true){
+            if(!checked[cards[s]-1]){
+                checked[cards[s]-1] = true;
+                s = cards[s] - 1;
+                cnt++;
+            }
+            else
+                break;
+        }
+        group[idx++] = cnt;
+    }
+    qsort(group,101,sizeof(int),compare);
+    return group[0] * group[1];
+}
