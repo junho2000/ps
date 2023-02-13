@@ -25,10 +25,10 @@ def solution(participant, completion):
     for person in participant:
         dic[hash(person)] = person
         part_sum += hash(person)
-        
+    
     for person in completion:
         comp_sum += hash(person)
-        
+    
     return dic[part_sum - comp_sum]
 
 #문제 접근 방법 3 (counter)
